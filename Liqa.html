@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Liqa</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#fff}
+.app{--pink:#FF77B7;--pink-soft:#FFE1EF;--pink-pale:#FFF6FA;--purple:#7C4DDB;--purple-deep:#5A31B8;--purple-soft:#EEE6FF;--ink:#2B1646;--muted:#675680;--line:#F3D9E8;font-family:Nunito,system-ui,sans-serif;color:var(--ink);background:#fff;min-height:100vh;font-size:16px;line-height:1.5}
+.app *{box-sizing:border-box}
+.app button,.app input,.app select,.app textarea{font-family:inherit}
+.app :focus-visible{outline:3px solid var(--purple);outline-offset:2px}
+.app h1,.app h2,.app h3{font-family:Fredoka,Nunito,sans-serif;font-weight:600;margin:0;line-height:1.1;letter-spacing:-0.01em}
+.app p{margin:0}
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;padding:14px 24px;border-bottom:2px solid var(--pink-soft);background:#fff}
+.logo{display:flex;align-items:center;gap:10px;font:600 32px Fredoka,sans-serif;color:var(--ink);line-height:1}
+.logo-mark{width:38px;height:38px;border-radius:50%;background:var(--pink);display:flex;align-items:center;justify-content:center}
+.logo-ar{font:700 15px Nunito,sans-serif;color:var(--purple-deep);background:var(--purple-soft);border-radius:999px;padding:3px 10px}
+.nav{display:flex;gap:8px;flex:1 1 auto;justify-content:center}
+.tab{min-height:44px;padding:0 20px;border-radius:999px;border:2px solid transparent;background:#fff;color:var(--ink);font-weight:800;font-size:16px;cursor:pointer}
+.tab:hover{background:var(--pink-pale)}
+.tab.on{background:var(--pink);border-color:var(--pink)}
+.avatar{width:40px;height:40px;border-radius:50%;background:var(--purple);color:#fff;display:flex;align-items:center;justify-content:center;font:600 18px Fredoka,sans-serif}
+.user{display:flex;align-items:center;gap:10px;font-weight:700;background:#fff;border:2px solid transparent;border-radius:999px;padding:4px 6px 4px 16px;min-height:48px;cursor:pointer;color:var(--ink);font-size:16px}
+.user:hover{background:var(--pink-pale)}
+.user.on{background:var(--pink-soft)}
+.wrap{max-width:1160px;margin:0 auto;padding:32px 24px 56px}
+.btn{min-height:48px;padding:0 24px;border-radius:999px;border:2px solid transparent;font-weight:800;font-size:16px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
+.btn-pink{background:var(--pink);color:var(--ink)}
+.btn-pink:hover{filter:brightness(0.95)}
+.btn-purple{background:var(--purple);color:#fff}
+.btn-purple:hover{background:var(--purple-deep)}
+.btn-ghost{background:#fff;border-color:var(--purple);color:var(--purple-deep)}
+.btn-ghost:hover{background:var(--purple-soft)}
+.btn-done{background:var(--purple-soft);color:var(--purple-deep);border-color:var(--purple-soft)}
+.btn-block{width:100%}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--pink-soft);color:var(--purple-deep);font-weight:800;font-size:14px;border-radius:999px;padding:6px 14px}
+.hero{display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start}
+.hero-l{flex:1 1 360px;min-width:0}
+.hero-r{flex:1 1 440px;min-width:0}
+.app .h1{font-size:clamp(36px,5.4vw,60px);margin:18px 0 16px}
+.hl{background:linear-gradient(transparent 60%,var(--pink) 60%);padding:0 4px}
+.lead{font-size:18px;color:var(--muted);max-width:520px}
+.floaters{position:relative;margin-top:32px;display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.float{display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:10px 18px;font-weight:800;border:2px solid var(--line);background:#fff}
+.float.f1{background:var(--pink-soft);border-color:var(--pink-soft);transform:rotate(-2deg)}
+.float.f2{background:var(--purple-soft);border-color:var(--purple-soft);margin-left:36px;transform:rotate(1.5deg)}
+.float.f3{background:var(--pink);border-color:var(--pink);margin-left:12px;transform:rotate(-1deg)}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--purple)}
+.panel{background:#fff;border:2px solid var(--line);border-radius:28px;padding:28px;box-shadow:0 14px 40px rgba(124,77,219,0.10)}
+.panel h2{font-size:28px;margin-bottom:4px}
+.sub{color:var(--muted)}
+.field{margin-top:18px}
+.field label,.lbl{display:block;font-weight:800;margin-bottom:6px}
+.input{width:100%;min-height:48px;padding:10px 16px;border:2px solid var(--line);border-radius:16px;background:#fff;color:var(--ink);font-size:16px}
+.input:focus{border-color:var(--purple)}
+textarea.input{min-height:104px;resize:vertical}
+.row{display:flex;flex-wrap:wrap;gap:16px}
+.row>div{flex:1 1 200px;min-width:0}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.pill{min-height:44px;padding:0 18px;border-radius:999px;border:2px solid var(--line);background:#fff;color:var(--ink);font-weight:800;font-size:15px;cursor:pointer}
+.pill:hover{background:var(--pink-pale)}
+.pill.on{background:var(--purple);border-color:var(--purple);color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{min-height:44px;padding:0 16px;border-radius:999px;border:2px solid var(--line);background:#fff;color:var(--ink);font-weight:700;font-size:15px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.chip:hover{background:var(--pink-pale)}
+.chip.on{background:var(--pink);border-color:var(--pink)}
+.err{margin-top:16px;background:var(--pink-pale);border:2px solid var(--pink);border-radius:16px;padding:10px 16px;font-weight:700;color:#8A0F46}
+.count{font-size:14px;color:var(--muted);margin-top:8px;font-weight:700}
+.fine{font-size:13px;color:var(--muted);margin-top:14px}
+.head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:20px}
+.head h2{font-size:clamp(28px,4vw,40px)}
+.mine{display:flex;flex-wrap:wrap;align-items:center;gap:10px;background:var(--pink-pale);border:2px solid var(--pink-soft);border-radius:20px;padding:12px 16px;margin-bottom:20px}
+.tagx{background:#fff;border:2px solid var(--pink-soft);border-radius:999px;padding:2px 12px;font-size:14px;font-weight:700;color:var(--purple-deep)}
+.filters{display:flex;flex-wrap:wrap;gap:14px 16px;align-items:flex-end;margin-bottom:16px}
+.filters .f{flex:1 1 180px;min-width:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:20px}
+.ev{display:flex;flex-direction:column;border:2px solid var(--line);border-radius:24px;overflow:hidden;background:#fff}
+.ev:hover{border-color:var(--pink)}
+.ev-top{display:flex;gap:14px;align-items:center;padding:16px;background:var(--pink-pale)}
+.tile{width:66px;height:70px;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex:none}
+.tile b{font:600 28px Fredoka,sans-serif;line-height:1}
+.tile span{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+.tile.a{background:var(--pink);color:var(--ink)}
+.tile.b{background:var(--purple);color:#fff}
+.tile.c{background:var(--pink-soft);color:var(--purple-deep)}
+.price{margin-left:auto;font-weight:800;border-radius:999px;padding:4px 14px;background:#fff;border:2px solid var(--purple-soft);color:var(--purple-deep);white-space:nowrap}
+.price.free{background:var(--purple);border-color:var(--purple);color:#fff}
+.ev-body{padding:16px;display:flex;flex-direction:column;gap:10px;flex:1}
+.ev-body h3{font-size:22px}
+.meta{display:flex;align-items:center;gap:8px;color:var(--muted);font-weight:700;font-size:15px}
+.match{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:800;color:var(--purple-deep);background:var(--purple-soft);border-radius:999px;padding:3px 12px;align-self:flex-start}
+.ev-body .btn{margin-top:auto}
+.empty{border:2px dashed var(--pink);border-radius:24px;padding:32px;text-align:center;background:var(--pink-pale)}
+.back{margin-bottom:20px}
+.detail{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start}
+.d-main{flex:1 1 520px;min-width:0}
+.d-side{flex:1 1 300px;max-width:380px;min-width:0}
+.d-band{border-radius:28px;background:linear-gradient(135deg,var(--pink) 0%,var(--pink-soft) 100%);padding:28px;display:flex;gap:20px;align-items:center;flex-wrap:wrap;margin-bottom:24px}
+.d-band h1{font-size:clamp(30px,4.4vw,44px)}
+.sec{margin-top:24px}
+.sec h3{font-size:22px;margin-bottom:10px}
+.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.list li{display:flex;gap:10px;align-items:flex-start}
+.tick{flex:none;width:24px;height:24px;border-radius:50%;background:var(--pink);display:flex;align-items:center;justify-content:center;margin-top:1px}
+.big-price{font:600 40px Fredoka,sans-serif;color:var(--purple-deep)}
+.facts{display:flex;flex-direction:column;gap:12px;margin:16px 0 20px}
+.confirm{margin-top:14px;background:var(--purple-soft);border-radius:16px;padding:12px 16px;font-weight:700;color:var(--purple-deep)}
+.banner{border-radius:28px;background:var(--pink-soft);padding:32px;display:flex;flex-wrap:wrap;gap:28px;align-items:center;margin-bottom:28px}
+.banner>div{flex:1 1 320px;min-width:0}
+.banner h1{font-size:clamp(30px,4.4vw,46px);margin:14px 0 12px}
+.steps{display:flex;flex-direction:column;gap:12px;flex:1 1 300px}
+.step{display:flex;align-items:center;gap:14px;background:#fff;border-radius:20px;padding:12px 16px;font-weight:700}
+.num{flex:none;width:36px;height:36px;border-radius:50%;background:var(--purple);color:#fff;display:flex;align-items:center;justify-content:center;font:600 18px Fredoka,sans-serif}
+.v-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.venue{border:2px solid var(--line);border-radius:24px;padding:20px;background:#fff;display:flex;flex-direction:column;gap:10px}
+.venue.open{grid-column:1/-1;border-color:var(--pink);background:var(--pink-pale)}
+.venue h3{font-size:22px}
+.kind{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--purple-deep)}
+.form{margin-top:8px;background:#fff;border:2px solid var(--pink-soft);border-radius:20px;padding:20px;max-width:720px}
+.sent{border:2px solid var(--purple-soft);border-radius:20px;padding:16px 20px;background:#fff;margin-bottom:14px}
+.track{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.stp{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:4px 14px;font-size:14px;font-weight:800;background:#fff;border:2px solid var(--line);color:var(--muted)}
+.stp.done{background:var(--pink);border-color:var(--pink);color:var(--ink)}
+.stp.cur{background:var(--purple-soft);border-color:var(--purple);color:var(--purple-deep)}
+.avatar.big{width:84px;height:84px;font-size:38px}
+.p-head{display:flex;flex-wrap:wrap;gap:20px;align-items:center;margin-bottom:24px}
+.p-head h1{font-size:clamp(30px,4.4vw,44px)}
+.act{display:flex;flex-wrap:wrap;gap:14px;align-items:center;border:2px solid var(--line);border-radius:20px;padding:14px 16px;background:#fff;margin-bottom:12px}
+.act .tile{width:56px;height:60px}
+.act .tile b{font-size:24px}
+.act-body{flex:1 1 220px;min-width:0}
+.soc{padding:14px 0;border-top:2px solid var(--pink-soft)}
+.soc:first-of-type{border-top:0}
+.soc-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+.soc-row{display:flex;gap:10px}
+.soc-row .input{flex:1 1 auto;min-width:0}
+.obadge{border-radius:18px;padding:10px 16px;font:600 26px Fredoka,sans-serif;line-height:1.1;min-height:70px;display:flex;align-items:center}
+.obadge.a{background:var(--pink);color:var(--ink)}
+.obadge.b{background:var(--purple);color:#fff}
+.obadge.c{background:var(--pink-soft);color:var(--purple-deep)}
+.punch{display:flex;gap:8px;flex-wrap:wrap}
+.pd{width:28px;height:28px;border-radius:50%;border:2px dashed var(--purple)}
+.pd.free{border-style:solid;border-color:var(--pink);background:var(--pink)}
+.foot{border-top:2px solid var(--pink-soft);padding:20px 24px;text-align:center;color:var(--muted);font-size:14px}
+@media (max-width:720px){
+.top{padding:12px 16px}
+.nav{order:3;flex:1 1 100%}
+.tab{flex:1}
+.user .uname{display:none}
+.wrap{padding:24px 16px 40px}
+.panel{padding:20px}
+.banner{padding:22px}
+.float.f2,.float.f3{margin-left:0}
+}
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+<script>
+(function () {
+  var INTERESTS = [
+    { id: 'coffee', label: 'Coffee and cafes' }, { id: 'boardgames', label: 'Board games' },
+    { id: 'art', label: 'Art and crafts' }, { id: 'sports', label: 'Sports' },
+    { id: 'outdoors', label: 'Beach and hiking' }, { id: 'music', label: 'Music and open mic' },
+    { id: 'books', label: 'Books and writing' }, { id: 'gaming', label: 'Gaming and tech' },
+    { id: 'photo', label: 'Photography' }, { id: 'volunteer', label: 'Volunteering' },
+    { id: 'food', label: 'Food and cooking' }, { id: 'fitness', label: 'Fitness and yoga' },
+    { id: 'startup', label: 'Startups and ideas' }
+  ];
+  var AREAS = ['Al Ghubrah', 'Al Khuwair', 'Al Mouj', 'Azaiba', 'Bawshar', 'Muttrah', 'Qurum', 'Ruwi', 'Seeb', 'Shatti Al Qurum'];
+  var EVENTS = [
+    { id: 'e1', title: 'Open Mic Night', tags: ['music'], venue: 'Echo Room Cafe', area: 'Al Khuwair', dow: 'Thu', day: '5', time: '7:30 PM', cost: 2,
+      desc: 'Sing, read, play or just come to listen. Sign up on the night for a short slot and enjoy an evening of local talent in a relaxed room.',
+      includes: ['A five-minute performance slot if you want one', 'Seating and a house soft drink', 'A friendly crowd of first-timers and regulars'],
+      know: 'Doors open 30 minutes early. Bring your own instrument or use the house keyboard.' },
+    { id: 'e2', title: 'Sunrise Beach Clean-up', tags: ['volunteer', 'outdoors'], venue: 'Mouj Beach Front', area: 'Al Mouj', dow: 'Fri', day: '6', time: '6:30 AM', cost: 0,
+      desc: 'Start the weekend by keeping the shoreline lovely. We clean for an hour, then walk and chat along the water.',
+      includes: ['Gloves and bags', 'Water and dates after the clean-up', 'A relaxed shoreline walk'],
+      know: 'Wear closed shoes and sun protection. Free to join.' },
+    { id: 'e3', title: 'Board Game Social', tags: ['boardgames'], venue: 'Dice and Dates', area: 'Al Khuwair', dow: 'Fri', day: '6', time: '5:00 PM', cost: 3,
+      desc: 'A shelf of games, a table for every level, and hosts who will teach you the rules. Come with friends or meet a new group.',
+      includes: ['Access to the full game library', 'A host to teach new games', 'One hot drink'],
+      know: 'Tables fill up quickly, so arrive early on the day.' },
+    { id: 'e4', title: 'Sunrise Yoga on the Lawn', tags: ['fitness', 'outdoors'], venue: 'Mouj Community Lawn', area: 'Al Mouj', dow: 'Sat', day: '7', time: '6:15 AM', cost: 5,
+      desc: 'A gentle outdoor flow for all levels, finishing with a short breathing session as the sun comes up.',
+      includes: ['A 60-minute guided session', 'Spare mats to borrow', 'Herbal tea afterwards'],
+      know: 'Bring a towel and water. Beginners are very welcome.' },
+    { id: 'e5', title: 'Watercolour for Beginners', tags: ['art'], venue: 'Qurum Creative Studio', area: 'Shatti Al Qurum', dow: 'Sat', day: '7', time: '4:00 PM', cost: 8,
+      desc: 'Learn the basics of washes, layering and colour mixing, and paint a small landscape to take home.',
+      includes: ['All paints, brushes and paper', 'Step-by-step teaching', 'Your finished painting'],
+      know: 'No experience needed. Wear something you do not mind getting paint on.' },
+    { id: 'e6', title: 'Padel Mixer', tags: ['sports', 'fitness'], venue: 'Seeb Youth Sports Club', area: 'Seeb', dow: 'Sat', day: '7', time: '8:00 PM', cost: 4,
+      desc: 'Rotating doubles so you play with and against everyone. Friendly, social and open to every level.',
+      includes: ['Court time', 'Rackets to borrow', 'Cold water'],
+      know: 'Wear court shoes. Players are matched by rough level.' },
+    { id: 'e7', title: 'Startup Coffee Chats', tags: ['startup', 'coffee'], venue: 'Ruwi Co-working Loft', area: 'Al Khuwair', dow: 'Sun', day: '8', time: '6:00 PM', cost: 3,
+      desc: 'Share an idea, get honest feedback and meet other people building things in Muscat, over good coffee.',
+      includes: ['Coffee or tea', 'A short lightning-pitch round', 'Time to network'],
+      know: 'Ideas at any stage are welcome, including just a sketch.' },
+    { id: 'e8', title: 'Book Club: First Meeting', tags: ['books'], venue: 'Muttrah Heritage Hub', area: 'Muttrah', dow: 'Mon', day: '9', time: '7:00 PM', cost: 0,
+      desc: 'Meet fellow readers, pick the first title together and set the rhythm for the club.',
+      includes: ['A friendly circle of readers', 'A vote on the first book', 'Light refreshments'],
+      know: 'Free to join. Bring a book you love to share.' },
+    { id: 'e9', title: 'Coffee Cupping Session', tags: ['coffee', 'food'], venue: 'Roast and Co', area: 'Shatti Al Qurum', dow: 'Wed', day: '11', time: '5:30 PM', cost: 4,
+      desc: 'Taste several roasts side by side and learn how to spot the flavours that make each cup different.',
+      includes: ['Four coffees to taste', 'A guided tasting card', 'A small bag of beans to take home'],
+      know: 'Arrive without strong perfume so the aromas come through.' },
+    { id: 'e10', title: 'Street Food Cook-along', tags: ['food'], venue: 'Azaiba Community Kitchen', area: 'Azaiba', dow: 'Thu', day: '12', time: '6:30 PM', cost: 7,
+      desc: 'Cook two street-food favourites step by step with a local chef, then share the meal together.',
+      includes: ['All ingredients', 'A chef guiding each step', 'Your dinner, plus the recipe card'],
+      know: 'Tell the host about any allergies when you sign up.' },
+    { id: 'e11', title: 'Coastal Trail Hike', tags: ['outdoors', 'fitness'], venue: 'Trail Crew Muscat', area: 'Qurum', dow: 'Fri', day: '13', time: '3:30 PM', cost: 5,
+      desc: 'A guided coastal walk with views of the water, ending at a lookout for sunset. Moderate pace.',
+      includes: ['A guide and group leader', 'Shared transport from the meeting point', 'Water and snacks'],
+      know: 'Wear sturdy shoes and bring a hat.' },
+    { id: 'e12', title: 'Gaming Tournament Night', tags: ['gaming'], venue: 'Level Up Lounge', area: 'Al Ghubrah', dow: 'Fri', day: '13', time: '6:00 PM', cost: 2,
+      desc: 'Bracket-style friendly matches across a few popular games, with a lounge to hang out in between rounds.',
+      includes: ['Entry to one bracket', 'Console and PC stations', 'Snacks for the break'],
+      know: 'Teams and solo players both welcome.' },
+    { id: 'e13', title: 'Photo Walk: Old Muttrah', tags: ['photo', 'outdoors'], venue: 'Muttrah Heritage Hub', area: 'Muttrah', dow: 'Sat', day: '14', time: '4:30 PM', cost: 0,
+      desc: 'Wander the alleys and waterfront with other photographers, swapping tips on light, framing and street scenes.',
+      includes: ['A photographer to lead the walk', 'Tips for phone and camera shots', 'A group photo share afterwards'],
+      know: 'Free to join. Any camera or phone works.' }
+  ];
+  var VENUES = [
+    { id: 'v1', name: 'Echo Room Cafe', area: 'Al Khuwair', kind: 'Cafe and live room', about: 'A cosy cafe with a small stage, happy to host first-time performers and small gatherings.', hosts: ['Open mics', 'Small gigs', 'Workshops'] },
+    { id: 'v2', name: 'Mouj Community Hall', area: 'Al Mouj', kind: 'Community space', about: 'A flexible hall and lawn used for fitness sessions, talks and weekend markets.', hosts: ['Fitness', 'Talks', 'Markets'] },
+    { id: 'v3', name: 'Qurum Creative Studio', area: 'Shatti Al Qurum', kind: 'Art studio', about: 'A bright studio with materials on hand for art classes, crafts and photography meetups.', hosts: ['Art', 'Crafts', 'Photography'] },
+    { id: 'v4', name: 'Seeb Youth Sports Club', area: 'Seeb', kind: 'Sports club', about: 'Courts and pitches available for friendly tournaments and youth-led sports days.', hosts: ['Padel', 'Football', 'Tournaments'] },
+    { id: 'v5', name: 'Muttrah Heritage Hub', area: 'Muttrah', kind: 'Cultural centre', about: 'A cultural space for reading groups, heritage walks and exhibitions by young creators.', hosts: ['Book clubs', 'Walks', 'Exhibitions'] },
+    { id: 'v6', name: 'Ruwi Co-working Loft', area: 'Al Khuwair', kind: 'Co-working space', about: 'A shared workspace that opens its floor for startup talks, hack nights and gaming events.', hosts: ['Startup talks', 'Hack nights', 'Gaming'] }
+  ];
+  var PAST = [
+    { title: 'Sunset Photo Walk', venue: 'Muttrah Heritage Hub', area: 'Muttrah', day: '17', mon: 'Oct', time: '4:30 PM' },
+    { title: 'Poetry and Chai Night', venue: 'Echo Room Cafe', area: 'Al Khuwair', day: '22', mon: 'Oct', time: '7:00 PM' },
+    { title: 'Beginner Padel Clinic', venue: 'Seeb Youth Sports Club', area: 'Seeb', day: '24', mon: 'Oct', time: '6:00 PM' }
+  ];
+  var OFFERS = [
+    { id: 'o1', type: 'recurring', label: 'Recurring events', badge: '5th free', visits: 4, title: 'Open Mic Regulars', venue: 'Echo Room Cafe', area: 'Al Khuwair',
+      desc: 'Come to four Thursday open mic nights and your fifth entry is free.', fine: 'Valid through 31 December. Visits are stamped at the door.' },
+    { id: 'o2', type: 'recurring', label: 'Recurring events', badge: '5th free', visits: 4, title: 'Sunrise Yoga Streak', venue: 'Mouj Community Lawn', area: 'Al Mouj',
+      desc: 'Book four sunrise yoga sessions and the fifth is on us.', fine: 'Valid through 31 December. Sessions can be on any weekend.' },
+    { id: 'o3', type: 'recurring', label: 'Recurring events', badge: 'Free beans', visits: 3, title: 'Cupping Passport', venue: 'Roast and Co', area: 'Shatti Al Qurum',
+      desc: 'Join three coffee cupping sessions and take home a free bag of beans.', fine: 'Valid through 31 December.' },
+    { id: 'o4', type: 'friend', label: 'Bring a friend', badge: '2 for 1', title: 'Bring a Friend: Board Games', venue: 'Dice and Dates', area: 'Al Khuwair',
+      desc: 'Bring a friend to Board Game Social and you both play for the price of one.', fine: 'Your friend just needs to give your name at the door.' },
+    { id: 'o5', type: 'friend', label: 'Bring a friend', badge: 'Half price', title: 'Trail Buddy Deal', venue: 'Trail Crew Muscat', area: 'Qurum',
+      desc: 'Bring a friend on the Coastal Trail Hike and their spot is half price.', fine: 'One friend per member for each hike.' },
+    { id: 'o6', type: 'other', label: 'Group deal', badge: 'OMR 12', title: 'Padel Squad Deal', venue: 'Seeb Youth Sports Club', area: 'Seeb',
+      desc: 'Book a group of four for the Padel Mixer and pay OMR 12 in total instead of OMR 16.', fine: 'Book all four spots together.' },
+    { id: 'o7', type: 'other', label: 'Early bird', badge: 'OMR 6', title: 'Early Bird Watercolour', venue: 'Qurum Creative Studio', area: 'Shatti Al Qurum',
+      desc: 'Reserve a Watercolour for Beginners spot three days ahead and pay OMR 6 instead of OMR 8.', fine: 'Applies to reservations made at least three days before.' },
+    { id: 'o8', type: 'other', label: 'Teen deal', badge: 'OMR 1 off', title: 'Teen Gaming Night', venue: 'Level Up Lounge', area: 'Al Ghubrah',
+      desc: 'Teens get OMR 1 off Gaming Tournament Night entry when they show their Liqa profile.', fine: 'For members aged 13 to 17.' }
+  ];
+
+  var state = {
+    screen: 'signup', signedUp: false,
+    name: '', email: '', area: 'Qurum', age: 'teen', interests: [], signupError: '',
+    filter: 'foryou', freeOnly: false, sort: 'match', day: 'any', slot: 'any',
+    selId: '', reserved: [],
+    profTab: 'reg', socialDraft: { li: '', ig: '', x: '' }, socialLinked: { li: '', ig: '', x: '' }, socialError: '',
+    offerFilter: 'all', claimedOffers: [],
+    pitchVenue: '', pitchMode: 'pitch', pitchTitle: '', pitchDate: '', pitchMsg: '', pitchError: '', pitches: []
+  };
+
+  var app = document.getElementById('app');
+  var TILES = ['a', 'b', 'c'];
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function cost(c) { return c === 0 ? 'Free' : 'OMR ' + c; }
+  function labelOf(id) { var r = INTERESTS.filter(function (i) { return i.id === id; })[0]; return r ? r.label : id; }
+  function findEvent(id) { return EVENTS.filter(function (e) { return e.id === id; })[0]; }
+  function cls(on) { return on ? 'on' : ''; }
+  function pressed(on) { return on ? 'true' : 'false'; }
+
+  var ICON = {
+    pin: function (c, s) { return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 24 24" fill="none" stroke="' + c + '" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg>'; },
+    clock: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5A31B8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+    check: function (s, w) { return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 24 24" fill="none" stroke="#2B1646" stroke-width="' + w + '" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>'; },
+    back: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5A31B8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>',
+    send: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2B1646" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 3L10 14"/><path d="M21 3l-7 18-4-7-7-4z"/></svg>'
+  };
+
+  function hour24(t) {
+    var p = t.match(/(\d+):(\d+)\s*(AM|PM)/);
+    var h = parseInt(p[1], 10) % 12;
+    if (p[3] === 'PM') h += 12;
+    return h;
+  }
+  function slotOf(t) { var h = hour24(t); return h < 12 ? 'morning' : (h < 17 ? 'afternoon' : 'evening'); }
+
+  function firstName() { return state.name.trim() || 'there'; }
+  function initial() { return (state.name.trim()[0] || 'L').toUpperCase(); }
+
+  function attr(a, v) { return 'data-a="' + a + '"' + (v !== undefined ? ' data-v="' + esc(v) + '"' : ''); }
+  function options(list, current) {
+    return list.map(function (o) { return '<option value="' + esc(o.v) + '"' + (o.v === current ? ' selected' : '') + '>' + esc(o.label) + '</option>'; }).join('');
+  }
+
+  function header() {
+    var h = '<header class="top"><div class="logo"><span class="logo-mark" aria-hidden="true">' + ICON.pin('#2B1646', 22) + '</span><span>Liqa</span><span class="logo-ar" lang="ar">لقاء</span></div>';
+    if (state.signedUp) {
+      var s = state.screen;
+      h += '<nav class="nav" aria-label="Main">' +
+        '<button class="tab ' + cls(s === 'events' || s === 'detail') + '" ' + attr('go', 'events') + '>Discover</button>' +
+        '<button class="tab ' + cls(s === 'offers') + '" ' + attr('go', 'offers') + '>Offers</button>' +
+        '<button class="tab ' + cls(s === 'teen') + '" ' + attr('go', 'teen') + '>Teen Hub</button></nav>' +
+        '<button class="user ' + cls(s === 'profile') + '" aria-label="Open your profile" ' + attr('go', 'profile') + '><span class="uname">' + esc(firstName()) + '</span><span class="avatar" aria-hidden="true">' + esc(initial()) + '</span></button>';
+    }
+    return h + '</header>';
+  }
+
+  function signupView() {
+    var sel = state.interests;
+    var chips = INTERESTS.map(function (i) {
+      var on = sel.indexOf(i.id) >= 0;
+      return '<button type="button" class="chip ' + cls(on) + '" aria-pressed="' + pressed(on) + '" ' + attr('interest', i.id) + '>' + (on ? ICON.check(16, 3.2) : '') + esc(i.label) + '</button>';
+    }).join('');
+    var count = sel.length === 0 ? 'Pick at least 3.' : (sel.length < 3 ? sel.length + ' picked. Pick ' + (3 - sel.length) + ' more.' : sel.length + ' picked. Nice mix.');
+    return '<section class="hero"><div class="hero-l"><span class="eyebrow">Third places in Muscat</span>' +
+      '<h1 class="h1">Find your spot. <span class="hl">Find your people.</span></h1>' +
+      '<p class="lead">Beyond home and school or work, there are cafés, trails, studios and courts where community happens. Liqa shows you what is on around Muscat, matched to what you love, and gives teens a way to run their own events.</p>' +
+      '<div class="floaters" aria-hidden="true"><span class="float f1"><span class="dot"></span>Open mic night · Al Khuwair</span><span class="float f2"><span class="dot"></span>Padel mixer · Seeb</span><span class="float f3"><span class="dot"></span>Sunrise yoga · Al Mouj</span></div></div>' +
+      '<div class="hero-r"><form class="panel" id="signup-form" novalidate><h2>Join Liqa</h2><p class="sub">Tell us a little about you and pick what you are into.</p>' +
+      '<div class="row"><div class="field"><label for="f-name">First name</label><input class="input" id="f-name" type="text" autocomplete="given-name" value="' + esc(state.name) + '" data-in="name"></div>' +
+      '<div class="field"><label for="f-email">Email</label><input class="input" id="f-email" type="email" autocomplete="email" value="' + esc(state.email) + '" data-in="email"></div></div>' +
+      '<div class="row"><div class="field"><label for="f-area">Where in Muscat are you?</label><select class="input" id="f-area" data-sel="area">' + options(AREAS.map(function (a) { return { v: a, label: a }; }), state.area) + '</select></div>' +
+      '<div class="field"><span class="lbl">I am a</span><div class="seg">' +
+      '<button type="button" class="pill ' + cls(state.age === 'teen') + '" aria-pressed="' + pressed(state.age === 'teen') + '" ' + attr('age', 'teen') + '>Teen (13 to 17)</button>' +
+      '<button type="button" class="pill ' + cls(state.age === 'adult') + '" aria-pressed="' + pressed(state.age === 'adult') + '" ' + attr('age', 'adult') + '>Adult</button></div></div></div>' +
+      '<div class="field"><span class="lbl">Interests and hobbies</span><div class="chips">' + chips + '</div><p class="count">' + count + '</p></div>' +
+      (state.signupError ? '<p class="err" role="alert" data-err>' + esc(state.signupError) + '</p>' : '') +
+      '<div style="margin-top:22px"><button type="submit" class="btn btn-pink btn-block">Show me what is on</button></div>' +
+      '<p class="fine">Your picks help us recommend events near you. You can change them any time.</p></form></div></section>';
+  }
+
+  function computeList() {
+    var sel = state.interests;
+    var scored = EVENTS.map(function (e, idx) {
+      var m = e.tags.filter(function (t) { return sel.indexOf(t) >= 0; });
+      var near = e.area === state.area;
+      return { e: e, idx: idx, m: m, near: near, score: m.length * 2 + (near ? 1 : 0) };
+    });
+    var list = scored;
+    if (state.filter === 'foryou') list = list.filter(function (x) { return x.m.length > 0 || x.near; });
+    if (state.freeOnly) list = list.filter(function (x) { return x.e.cost === 0; });
+    if (state.day === 'weekend') list = list.filter(function (x) { return x.e.dow === 'Fri' || x.e.dow === 'Sat'; });
+    else if (state.day !== 'any') list = list.filter(function (x) { return x.e.dow + ' ' + x.e.day === state.day; });
+    if (state.slot !== 'any') list = list.filter(function (x) { return slotOf(x.e.time) === state.slot; });
+    var sorters = {
+      match: function (a, b) { return b.score - a.score || a.idx - b.idx; },
+      soon: function (a, b) { return a.idx - b.idx; },
+      low: function (a, b) { return a.e.cost - b.e.cost || a.idx - b.idx; },
+      high: function (a, b) { return b.e.cost - a.e.cost || a.idx - b.idx; }
+    };
+    return list.slice().sort(sorters[state.sort] || sorters.match);
+  }
+
+  function eventsView() {
+    var list = computeList();
+    var sortOpts = [{ v: 'match', label: 'Best match' }, { v: 'soon', label: 'Soonest first' }, { v: 'low', label: 'Price: low to high' }, { v: 'high', label: 'Price: high to low' }];
+    var dayOpts = [{ v: 'any', label: 'Any day' }, { v: 'weekend', label: 'Weekend (Fri and Sat)' }];
+    var seen = [];
+    EVENTS.forEach(function (e) {
+      var k = e.dow + ' ' + e.day;
+      if (seen.indexOf(k) < 0) { seen.push(k); dayOpts.push({ v: k, label: e.dow + ' ' + e.day + ' Nov' }); }
+    });
+    var slotOpts = [{ v: 'any', label: 'Any time' }, { v: 'morning', label: 'Morning (before 12 PM)' }, { v: 'afternoon', label: 'Afternoon (12 to 5 PM)' }, { v: 'evening', label: 'Evening (after 5 PM)' }];
+    var hasActive = state.freeOnly || state.day !== 'any' || state.slot !== 'any' || state.sort !== 'match';
+    var resultText = list.length + (list.length === 1 ? ' event' : ' events') + (state.filter === 'foryou' ? ' matching your interests and area. Switch to All events to see everything.' : ' shown, including ones outside your interests.');
+    var mine = state.interests.map(function (id) { return '<span class="tagx">' + esc(labelOf(id)) + '</span>'; }).join('');
+    var cards = list.map(function (x, n) {
+      var e = x.e, matchText = '';
+      if (x.m.length) matchText = 'Matches ' + x.m.slice(0, 2).map(labelOf).join(' and ');
+      else if (x.near) matchText = 'Near you in ' + e.area;
+      return '<article class="ev"><div class="ev-top"><div class="tile ' + TILES[n % 3] + '"><b>' + e.day + '</b><span>Nov</span></div>' +
+        '<div style="min-width:0"><div style="font-weight:800">' + e.dow + '</div><div class="sub" style="font-weight:700">' + e.time + '</div></div>' +
+        '<span class="price ' + (e.cost === 0 ? 'free' : '') + '">' + cost(e.cost) + '</span></div>' +
+        '<div class="ev-body"><h3>' + esc(e.title) + '</h3><div class="meta">' + ICON.pin('#5A31B8', 18) + '<span>' + esc(e.venue) + ', ' + esc(e.area) + '</span></div>' +
+        (matchText ? '<span class="match">' + esc(matchText) + '</span>' : '') +
+        '<button class="btn btn-purple" aria-label="See details for ' + esc(e.title) + '" ' + attr('open', e.id) + '>See details</button></div></article>';
+    }).join('');
+    return '<section><div class="head"><div><h2>Happening around Muscat</h2><p class="sub">Upcoming events and activities. Sample listings for this prototype.</p></div>' +
+      '<div class="seg" role="group" aria-label="Which events to show">' +
+      '<button class="pill ' + cls(state.filter === 'foryou') + '" aria-pressed="' + pressed(state.filter === 'foryou') + '" ' + attr('scope', 'foryou') + '>Matches my interests</button>' +
+      '<button class="pill ' + cls(state.filter === 'all') + '" aria-pressed="' + pressed(state.filter === 'all') + '" ' + attr('scope', 'all') + '>All events</button></div></div>' +
+      '<div class="filters">' +
+      '<div class="f"><label class="lbl" for="f-sort">Sort by</label><select class="input" id="f-sort" data-sel="sort">' + options(sortOpts, state.sort) + '</select></div>' +
+      '<div class="f"><label class="lbl" for="f-day">Day</label><select class="input" id="f-day" data-sel="day">' + options(dayOpts, state.day) + '</select></div>' +
+      '<div class="f"><label class="lbl" for="f-slot">Time</label><select class="input" id="f-slot" data-sel="slot">' + options(slotOpts, state.slot) + '</select></div>' +
+      '<div class="f" style="flex:0 0 auto"><span class="lbl">Price</span><button class="pill ' + cls(state.freeOnly) + '" aria-pressed="' + pressed(state.freeOnly) + '" ' + attr('free') + '>Free only</button></div>' +
+      (hasActive ? '<div class="f" style="flex:0 0 auto"><button class="btn btn-ghost" ' + attr('reset') + '>Reset filters</button></div>' : '') + '</div>' +
+      '<p class="count" style="margin:0 0 16px">' + resultText + '</p>' +
+      '<div class="mine"><span style="font-weight:800">Your interests</span>' + mine + '<button class="btn btn-ghost" style="min-height:40px;padding:0 16px;margin-left:auto" ' + attr('go', 'signup') + '>Edit</button></div>' +
+      (list.length ? '<div class="grid">' + cards + '</div>' :
+        '<div class="empty"><h3 style="margin-bottom:8px">Nothing matches yet</h3><p class="sub" style="margin-bottom:16px">Try All events, or add more interests.</p><button class="btn btn-pink" ' + attr('reset') + '>Show all events</button></div>') +
+      '</section>';
+  }
+
+  function detailView() {
+    var e = findEvent(state.selId) || EVENTS[0];
+    var isRes = state.reserved.indexOf(e.id) >= 0;
+    var tags = e.tags.map(function (t) { return '<span class="tagx">' + esc(labelOf(t)) + '</span>'; }).join('');
+    var inc = e.includes.map(function (t) { return '<li><span class="tick">' + ICON.check(14, 3.4) + '</span><span>' + esc(t) + '</span></li>'; }).join('');
+    return '<section><button class="btn btn-ghost back" ' + attr('go', 'events') + '>' + ICON.back + 'All events</button><div class="detail"><div class="d-main">' +
+      '<div class="d-band"><div class="tile b" style="width:84px;height:88px"><b style="font-size:36px">' + e.day + '</b><span>Nov</span></div>' +
+      '<div style="flex:1 1 240px;min-width:0"><h1>' + esc(e.title) + '</h1><p style="font-weight:700;margin-top:8px">' + esc(e.venue) + ', ' + esc(e.area) + '</p></div></div>' +
+      '<div class="chips" style="margin-bottom:8px">' + tags + '</div>' +
+      '<div class="sec"><h3>About this event</h3><p>' + esc(e.desc) + '</p></div>' +
+      '<div class="sec"><h3>What is included</h3><ul class="list">' + inc + '</ul></div>' +
+      '<div class="sec"><h3>Good to know</h3><p>' + esc(e.know) + '</p></div></div>' +
+      '<aside class="d-side panel"><div class="lbl" style="margin:0">Cost per person</div><div class="big-price">' + cost(e.cost) + '</div>' +
+      '<div class="facts"><div class="meta">' + ICON.clock + '<span>' + e.dow + ', ' + e.time + '</span></div><div class="meta">' + ICON.pin('#5A31B8', 18) + '<span>' + esc(e.venue) + ', ' + esc(e.area) + '</span></div></div>' +
+      '<button class="btn btn-block ' + (isRes ? 'btn-done' : 'btn-pink') + '" ' + attr('reserve', e.id) + '>' + (isRes ? 'Interest sent' : (e.cost === 0 ? 'Count me in' : 'Reserve my spot')) + '</button>' +
+      (isRes ? '<p class="confirm">Thanks ' + esc(firstName()) + '. We have passed your interest to the host.</p>' : '') +
+      '</aside></div></section>';
+  }
+
+  function profileView() {
+    var reg = state.reserved.map(findEvent).filter(Boolean).map(function (e, n) {
+      return { title: e.title, sub: e.venue + ', ' + e.area + ' · ' + e.dow + ' ' + e.time, day: e.day, mon: 'Nov', tile: TILES[n % 3], status: 'Registered', sc: 'cur', view: e.id };
+    });
+    var att = PAST.map(function (e, n) {
+      return { title: e.title, sub: e.venue + ', ' + e.area + ' · ' + e.time, day: e.day, mon: e.mon, tile: TILES[n % 3], status: 'Attended', sc: 'done' };
+    });
+    var plan = state.pitches.filter(function (p) { return p.modeLabel === 'Pitch sent'; }).map(function (p) {
+      return { title: p.title, sub: 'Pitched to ' + p.venue, day: '+', mon: 'Idea', tile: 'c', status: 'Awaiting reply', sc: 'cur' };
+    });
+    var by = { reg: reg, att: att, plan: plan };
+    var items = by[state.profTab] || reg;
+    var tabs = [['reg', 'Registered', reg.length], ['att', 'Attended', att.length], ['plan', 'Planned', plan.length]].map(function (t) {
+      return '<button class="pill ' + cls(state.profTab === t[0]) + '" aria-pressed="' + pressed(state.profTab === t[0]) + '" ' + attr('ptab', t[0]) + '>' + t[1] + ' (' + t[2] + ')</button>';
+    }).join('');
+    var empties = {
+      reg: ['No registrations yet', 'Open an event and tap Reserve my spot to see it here.', 'Browse events', 'events'],
+      att: ['Nothing attended yet', 'Events you have been to will show up here.', 'Browse events', 'events'],
+      plan: ['No planned events yet', 'Pitch an idea to a venue in the Teen Hub and it will appear here.', 'Open Teen Hub', 'teen']
+    };
+    var em = empties[state.profTab] || empties.reg;
+    var rows = items.map(function (it) {
+      return '<div class="act"><div class="tile ' + it.tile + '"><b>' + esc(it.day) + '</b><span>' + esc(it.mon) + '</span></div>' +
+        '<div class="act-body"><div style="font-weight:800">' + esc(it.title) + '</div><div class="sub" style="font-size:15px">' + esc(it.sub) + '</div></div>' +
+        '<span class="stp ' + it.sc + '">' + it.status + '</span>' +
+        (it.view ? '<button class="btn btn-ghost" style="min-height:40px;padding:0 16px" aria-label="View ' + esc(it.title) + '" ' + attr('open', it.view) + '>View</button>' : '') + '</div>';
+    }).join('');
+    var nets = [{ id: 'li', label: 'LinkedIn', ph: 'linkedin.com/in/yourname' }, { id: 'ig', label: 'Instagram', ph: '@yourhandle' }, { id: 'x', label: 'X', ph: '@yourhandle' }];
+    var socials = nets.map(function (n) {
+      var linked = state.socialLinked[n.id];
+      var id = 'soc-' + n.id;
+      return '<div class="soc"><div class="soc-top"><label class="lbl" style="margin:0" for="' + id + '">' + n.label + '</label>' + (linked ? '<span class="stp done">Linked</span>' : '') + '</div>' +
+        (linked ?
+          '<div class="soc-row" id="' + id + '"><span class="input" style="display:flex;align-items:center;overflow:hidden">' + esc(linked) + '</span><button class="btn btn-ghost" style="min-height:48px;padding:0 18px" aria-label="Unlink ' + n.label + '" ' + attr('unlink', n.id) + '>Unlink</button></div>' :
+          '<div class="soc-row"><input class="input" id="' + id + '" type="text" placeholder="' + n.ph + '" value="' + esc(state.socialDraft[n.id]) + '" data-in="soc:' + n.id + '"><button class="btn btn-purple" style="min-height:48px;padding:0 18px" ' + attr('link', n.id) + '>Link</button></div>') + '</div>';
+    }).join('');
+    return '<section><div class="p-head"><span class="avatar big" aria-hidden="true">' + esc(initial()) + '</span><div><h1>' + esc(state.name) + '</h1><p class="sub">' + esc(state.area) + ', Muscat · ' + (state.age === 'teen' ? 'Teen member' : 'Adult member') + '</p></div></div>' +
+      '<div class="detail"><div class="d-main"><div class="seg" role="group" aria-label="Your activity" style="margin-bottom:18px">' + tabs + '</div>' +
+      (items.length ? '<div>' + rows + '</div>' :
+        '<div class="empty"><h3 style="margin-bottom:8px">' + em[0] + '</h3><p class="sub" style="margin-bottom:16px">' + em[1] + '</p><button class="btn btn-pink" ' + attr('go', em[3]) + '>' + em[2] + '</button></div>') +
+      (state.profTab === 'att' ? '<p class="fine">Past events shown here are sample history for the prototype.</p>' : '') + '</div>' +
+      '<aside class="d-side panel"><h2 style="font-size:24px">Link your socials</h2><p class="sub" style="margin-bottom:8px">Add your profiles so hosts and other members can find you.</p>' + socials +
+      (state.socialError ? '<p class="err" role="alert" data-err>' + esc(state.socialError) + '</p>' : '') + '</aside></div></section>';
+  }
+
+  function offersView() {
+    var filters = [['all', 'All offers'], ['recurring', 'Recurring events'], ['friend', 'Bring a friend'], ['other', 'Group and early bird']].map(function (f) {
+      return '<button class="pill ' + cls(state.offerFilter === f[0]) + '" aria-pressed="' + pressed(state.offerFilter === f[0]) + '" ' + attr('ofilter', f[0]) + '>' + f[1] + '</button>';
+    }).join('');
+    var cards = OFFERS.filter(function (o) { return state.offerFilter === 'all' || o.type === state.offerFilter; }).map(function (o, n) {
+      var claimed = state.claimedOffers.indexOf(o.id) >= 0;
+      var dots = '';
+      if (o.type === 'recurring') {
+        for (var i = 0; i <= o.visits; i++) dots += '<span class="pd ' + (i === o.visits ? 'free' : '') + '"></span>';
+        dots = '<div class="punch" role="img" aria-label="' + o.visits + ' visits, then a reward">' + dots + '</div>';
+      }
+      return '<article class="ev"><div class="ev-top"><div class="obadge ' + TILES[n % 3] + '">' + esc(o.badge) + '</div><span class="price">' + esc(o.label) + '</span></div>' +
+        '<div class="ev-body"><h3>' + esc(o.title) + '</h3><div class="meta">' + ICON.pin('#5A31B8', 18) + '<span>' + esc(o.venue) + ', ' + esc(o.area) + '</span></div>' +
+        '<p>' + esc(o.desc) + '</p>' + dots + '<p class="fine" style="margin:0">' + esc(o.fine) + '</p>' +
+        '<button class="btn ' + (claimed ? 'btn-done' : 'btn-pink') + '" ' + attr('claim', o.id) + '>' + (claimed ? 'Claimed' : 'Claim offer') + '</button>' +
+        (claimed ? '<p class="confirm" style="margin:0">Added to your offers. Show your Liqa profile at the venue.</p>' : '') + '</div></article>';
+    }).join('');
+    return '<section><div class="head"><div><h2>Offers</h2><p class="sub">Save when you keep coming back, or bring a friend along. Sample offers for this prototype.</p></div>' +
+      '<div class="seg" role="group" aria-label="Offer types">' + filters + '</div></div><div class="grid">' + cards + '</div></section>';
+  }
+
+  function teenView() {
+    var ask = state.pitchMode === 'ask';
+    var steps = ['Sent', 'Venue replies', 'Planning together', 'Event goes live'];
+    var pitches = state.pitches.map(function (p) {
+      return '<div class="sent"><div style="font-weight:800">' + esc(p.title) + '</div><div class="sub">' + esc(p.modeLabel) + ' to ' + esc(p.venue) + '. They will follow up with you here.</div><div class="track">' +
+        steps.map(function (l, i) { return '<span class="stp ' + (i === 0 ? 'done' : (i === 1 ? 'cur' : '')) + '">' + l + '</span>'; }).join('') + '</div></div>';
+    }).join('');
+    var venues = VENUES.map(function (v) {
+      var open = state.pitchVenue === v.id;
+      var hosts = v.hosts.map(function (h) { return '<span class="tagx">' + esc(h) + '</span>'; }).join('');
+      var form = '';
+      if (open) {
+        form = '<div class="form"><div class="seg" style="margin-bottom:6px">' +
+          '<button type="button" class="pill ' + cls(!ask) + '" aria-pressed="' + pressed(!ask) + '" ' + attr('pmode', 'pitch') + '>Pitch an event</button>' +
+          '<button type="button" class="pill ' + cls(ask) + '" aria-pressed="' + pressed(ask) + '" ' + attr('pmode', 'ask') + '>Ask a question</button></div>' +
+          '<div class="field"><label for="p-title">' + (ask ? 'What is your question about?' : 'Event title') + '</label><input class="input" id="p-title" type="text" value="' + esc(state.pitchTitle) + '" data-in="pitchTitle"></div>' +
+          '<div class="field"><label for="p-date">When are you thinking? (optional)</label><input class="input" id="p-date" type="text" value="' + esc(state.pitchDate) + '" data-in="pitchDate"></div>' +
+          '<div class="field"><label for="p-msg">Your message</label><textarea class="input" id="p-msg" data-in="pitchMsg">' + esc(state.pitchMsg) + '</textarea></div>' +
+          (state.pitchError ? '<p class="err" role="alert" data-err>' + esc(state.pitchError) + '</p>' : '') +
+          '<div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:18px"><button type="button" class="btn btn-pink" ' + attr('psend', v.id) + '>' + ICON.send + 'Send to venue</button>' +
+          '<button type="button" class="btn btn-ghost" ' + attr('pcancel') + '>Cancel</button></div></div>';
+      }
+      return '<article class="venue ' + (open ? 'open' : '') + '"><span class="kind">' + esc(v.kind) + '</span><h3>' + esc(v.name) + '</h3><div class="meta">' + ICON.pin('#5A31B8', 18) + '<span>' + esc(v.area) + '</span></div>' +
+        '<p>' + esc(v.about) + '</p><div class="chips">' + hosts + '</div>' +
+        (open ? form : '<button class="btn btn-pink" style="margin-top:6px;align-self:flex-start" ' + attr('popen', v.id) + '>Contact and pitch</button>') + '</article>';
+    }).join('');
+    return '<section><div class="banner"><div><span class="eyebrow">Teen Hub</span><h1>Got an idea for an event? Pitch it.</h1>' +
+      '<p class="lead">Connect with registered venues and organisations around Muscat. Send your pitch, and they will follow up and support you in making it happen.</p></div>' +
+      '<div class="steps"><div class="step"><span class="num">1</span><span>Pick a venue that fits your idea</span></div><div class="step"><span class="num">2</span><span>Send your pitch or ask a question</span></div><div class="step"><span class="num">3</span><span>The venue follows up and helps you plan</span></div></div></div>' +
+      (state.pitches.length ? '<div style="margin-bottom:28px"><h2 style="font-size:28px;margin-bottom:14px">Your pitches</h2>' + pitches + '</div>' : '') +
+      '<h2 style="font-size:28px;margin-bottom:14px">Registered venues</h2><div class="v-grid">' + venues + '</div></section>';
+  }
+
+  function screenView() {
+    switch (state.screen) {
+      case 'events': return eventsView();
+      case 'detail': return detailView();
+      case 'profile': return profileView();
+      case 'offers': return offersView();
+      case 'teen': return teenView();
+      default: return signupView();
+    }
+  }
+
+  function render() {
+    var act = document.activeElement, key = null, pos = null;
+    if (act && act !== document.body && app.contains(act)) {
+      if (act.id) key = '#' + act.id;
+      else if (act.dataset && act.dataset.a) key = '[data-a="' + act.dataset.a + '"]' + (act.dataset.v !== undefined ? '[data-v="' + act.dataset.v + '"]' : '');
+      try { pos = act.selectionStart; } catch (e) {}
+    }
+    app.innerHTML = header() + '<main class="wrap">' + screenView() + '</main><footer class="foot">Liqa is a prototype. Events, venues and prices shown are sample content.</footer>';
+    if (key) {
+      var el = app.querySelector(key);
+      if (el) {
+        el.focus();
+        if (pos !== null && el.setSelectionRange) { try { el.setSelectionRange(pos, pos); } catch (e) {} }
+      }
+    }
+  }
+
+  function go(screen) { state.screen = screen; render(); window.scrollTo(0, 0); }
+
+  function submitSignup() {
+    var sel = state.interests;
+    if (!state.name.trim()) { state.signupError = 'Please add your first name.'; render(); return; }
+    if (state.email.indexOf('@') < 1) { state.signupError = 'Please add a valid email address.'; render(); return; }
+    if (sel.length < 3) { state.signupError = 'Pick at least 3 interests so we can recommend the right events.'; render(); return; }
+    state.signedUp = true; state.signupError = ''; state.filter = 'foryou';
+    go('events');
+  }
+
+  function sendPitch(venueId) {
+    var ask = state.pitchMode === 'ask';
+    if (!state.pitchTitle.trim() || !state.pitchMsg.trim()) {
+      state.pitchError = 'Add a title and a short message so the venue knows what you have in mind.';
+      render();
+      return;
+    }
+    var v = VENUES.filter(function (x) { return x.id === venueId; })[0];
+    state.pitches.unshift({ venue: v.name, title: state.pitchTitle.trim(), modeLabel: ask ? 'Question sent' : 'Pitch sent' });
+    state.pitchVenue = ''; state.pitchTitle = ''; state.pitchDate = ''; state.pitchMsg = ''; state.pitchError = ''; state.pitchMode = 'pitch';
+    render();
+    window.scrollTo(0, 0);
+  }
+
+  function toggle(list, id) { var i = list.indexOf(id); if (i >= 0) list.splice(i, 1); else list.push(id); }
+
+  app.addEventListener('click', function (ev) {
+    var el = ev.target.closest('[data-a]');
+    if (!el || !app.contains(el)) return;
+    var a = el.dataset.a, v = el.dataset.v;
+    switch (a) {
+      case 'go': go(v); break;
+      case 'interest': toggle(state.interests, v); state.signupError = ''; render(); break;
+      case 'age': state.age = v; render(); break;
+      case 'scope': state.filter = v; render(); break;
+      case 'free': state.freeOnly = !state.freeOnly; render(); break;
+      case 'reset': state.filter = 'all'; state.freeOnly = false; state.sort = 'match'; state.day = 'any'; state.slot = 'any'; render(); break;
+      case 'open': state.selId = v; go('detail'); break;
+      case 'reserve': toggle(state.reserved, v); render(); break;
+      case 'ptab': state.profTab = v; render(); break;
+      case 'link':
+        var d = (state.socialDraft[v] || '').trim();
+        if (!d) {
+          var names = { li: 'LinkedIn', ig: 'Instagram', x: 'X' };
+          state.socialError = 'Add your ' + names[v] + ' link or handle first.';
+        } else {
+          state.socialLinked[v] = d; state.socialDraft[v] = ''; state.socialError = '';
+        }
+        render(); break;
+      case 'unlink': state.socialLinked[v] = ''; render(); break;
+      case 'ofilter': state.offerFilter = v; render(); break;
+      case 'claim': toggle(state.claimedOffers, v); render(); break;
+      case 'popen': state.pitchVenue = v; state.pitchError = ''; render(); break;
+      case 'pcancel': state.pitchVenue = ''; state.pitchError = ''; render(); break;
+      case 'pmode': state.pitchMode = v; render(); break;
+      case 'psend': sendPitch(v); break;
+    }
+  });
+
+  app.addEventListener('input', function (ev) {
+    var el = ev.target;
+    var k = el.getAttribute && el.getAttribute('data-in');
+    if (!k) return;
+    if (k.indexOf('soc:') === 0) { state.socialDraft[k.slice(4)] = el.value; state.socialError = ''; }
+    else { state[k] = el.value; }
+    state.signupError = ''; state.pitchError = '';
+    var errs = app.querySelectorAll('[data-err]');
+    for (var i = 0; i < errs.length; i++) errs[i].remove();
+  });
+
+  app.addEventListener('change', function (ev) {
+    var el = ev.target;
+    var k = el.getAttribute && el.getAttribute('data-sel');
+    if (!k) return;
+    state[k] = el.value;
+    render();
+  });
+
+  app.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    if (ev.target.id === 'signup-form') submitSignup();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
